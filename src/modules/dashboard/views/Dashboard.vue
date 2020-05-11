@@ -1,21 +1,15 @@
 <template>
-	<v-container>
-		<h3>teste</h3>
-		<h3>{{ user.nome }}</h3>
-	</v-container>
+	<AppLayout>
+		<router-view />
+	</AppLayout>
 </template>
 
 <script>
-import AuthService from "@/modules/auth/services/auth-service";
+import AppLayout from "../components/AppLayout";
 export default {
-	name: "AppMenu",
-	data() {
-		return {
-		user: []
-		};
-	},
-	async created() {
-		this.user = await AuthService.user();
+	name: "Dashboard",
+	components: {
+		AppLayout
 	}
 };
 </script>

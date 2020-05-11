@@ -1,0 +1,7 @@
+query Clients {
+  clients {
+    nome, 
+    endereco,
+    telefone
+  }
+}
