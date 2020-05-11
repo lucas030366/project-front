@@ -70,7 +70,6 @@ export default {
 	methods: {
 		async submit() {
       this.isLoading = true;
-      console.log(this.user)
 			try {
 				this.isLogin
 					? await AuthService.login(this.user)

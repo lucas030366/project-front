@@ -4,8 +4,8 @@ import Router from 'vue-router'
 import { AUTH_TOKEN } from "@/plugins/apollo"
 import AuthService from "@/modules/auth/services/auth-service"
 
-import authRoutes from "@/modules/auth/router/index"
-import dashboardRoutes from "@/modules/dashboard/router/index"
+import authRoutes from "@/modules/auth/router"
+import dashboardRoutes from "@/modules/dashboard/router"
 
 Vue.use(Router)
 

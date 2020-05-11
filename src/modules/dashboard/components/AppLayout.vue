@@ -2,7 +2,14 @@
 	<section>
 		<AppToolbar />
 
-		<AppContent />
+		<v-container grid-list-md>
+			<v-layout>
+				<v-flex md12>
+					<slot />
+					<!--Puxando o router view de Dashboard-->
+				</v-flex>
+			</v-layout>
+		</v-container>
 
 		<AppFooter />
 	</section>
@@ -12,14 +19,12 @@
 import AppToolbar from "./AppToolbar";
 
 import AppFooter from "./AppFooter";
-import AppContent from "./AppContent";
 
 export default {
 	name: "AppLayout",
 	components: {
 		AppFooter,
-		AppToolbar,
-		AppContent
+		AppToolbar
 	},
 	data() {
 		return {

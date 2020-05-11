@@ -1,5 +1,9 @@
 <template>
-	<v-container>
-		<h3>Dashboard</h3>
-	</v-container>
+		<v-container grid-list-md>
+			<v-layout>
+				<v-flex md12>
+					<slot/> <!--Puxando o router view de Dashboard-->
+				</v-flex>
+			</v-layout>
+		</v-container>
 </template>
