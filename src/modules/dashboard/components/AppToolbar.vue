@@ -1,7 +1,7 @@
 <template>
 	<div>
 		<AppNavDrawer :showNav="drawer"/>
-		<v-app-bar app color="indigo" dark>
+		<v-app-bar app color="indigo" dense dark>
 			<v-app-bar-nav-icon class="d-lg-none" @click="drawer = !drawer" />
 			<v-toolbar-title>Dashboard</v-toolbar-title>
 		</v-app-bar>

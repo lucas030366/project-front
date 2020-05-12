@@ -1,3 +1,13 @@
 <template>
-  <h3>Tela de Dashboard</h3>
+	<AppLayout />
 </template>
+
+<script>
+import AppLayout from "../components/AppLayout";
+export default {
+	name: "Home",
+	components: {
+		AppLayout
+	}
+};
+</script>

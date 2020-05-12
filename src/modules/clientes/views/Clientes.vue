@@ -1,22 +1,17 @@
 <template>
-  <div>
-    <h3 v-for="cliente of clients" :key="cliente.id">{{ cliente }}</h3>
-  </div>
+	<AppLayout>
+		<router-view></router-view>
+	</AppLayout>
 </template>
 
 <script>
 
-import authService from "../services/client-service"
+import AppLayout from "../components/AppLayout";
 
 export default {
-  name: "Clientes",
-  data(){
-    return{
-      clients: []
-    }
-  },
-  async created(){
-    this.clients = await authService.clients()
-  }
-}
+	name: "Clientes",
+	components: {
+		AppLayout
+	}
+};
 </script>
