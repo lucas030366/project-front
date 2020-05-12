@@ -5,6 +5,6 @@ export default [
     path: "clientes",
     component: clientes,
     meta: { requiresAuth: true },
-    alias: ["home", ""]
+    
   }
 ]

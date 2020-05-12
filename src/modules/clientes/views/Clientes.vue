@@ -6,7 +6,7 @@
 
 <script>
 
-import authService from "../../../services/dashboard-service"
+import authService from "../services/client-service"
 
 export default {
   name: "Clientes",
