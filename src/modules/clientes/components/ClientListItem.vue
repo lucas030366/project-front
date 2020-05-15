@@ -1,7 +1,8 @@
 <template>
 	<tr>
-		<td>{{ client.nome }} {{showModal}}</td>
+		<td>{{ client.nome }}</td>
 		<td>{{ client.endereco }}</td>
+		<td>{{ client.telefone }}</td>
 		<td>
 			<v-tooltip color="black" top>
 				<template v-slot:activator="{ on }">
@@ -33,8 +34,11 @@
 </template>
 
 <script>
-import { mapActions, mapState } from "vuex";
+import { createNamespacedHelpers } from "vuex";
+const { mapState, mapActions } = createNamespacedHelpers("clientes");
+
 import ModalEditar from "./ModalEditar";
+
 export default {
 	name: "ClientListItem",
 	components: {
@@ -42,11 +46,6 @@ export default {
 	},
 	props: {
 		client: Object
-	},
-	data() {
-		return {
-			show: false
-		};
 	},
 	methods: {
 		...mapActions(["setClient", "setModal"]),

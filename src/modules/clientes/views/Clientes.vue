@@ -1,11 +1,11 @@
 <template>
-	<AppLayout>
+	<section>
+		<AppLayout />
 		<router-view></router-view>
-	</AppLayout>
+	</section>
 </template>
 
 <script>
-
 import AppLayout from "../components/AppLayout";
 
 export default {

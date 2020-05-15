@@ -1,20 +1,26 @@
 <template>
-	<v-simple-table fixedHeader>
-		<thead>
-			<tr>
-				<th class="text-left subtitle-1 font-weight-bold">Nome</th>
-				<th class="text-left subtitle-1 font-weight-bold">Endereço</th>
-				<th class="text-left subtitle-1 font-weight-bold">Opções</th>
-			</tr>
-		</thead>
-		<tbody>
-			<ClientListItem v-for="cliente of clients" :key="cliente.id" :client="cliente" />
-		</tbody>
-	</v-simple-table>
+	<section>
+		<v-simple-table fixedHeader>
+			<thead>
+				<tr>
+					<th class="subtitle-1 font-weight-bold">Nome</th>
+					<th class="subtitle-1 font-weight-bold">Endereço</th>
+					<th class="subtitle-1 font-weight-bold">Contato</th>
+					<th class="subtitle-1 font-weight-bold">Opções</th>
+				</tr>
+			</thead>
+			<tbody>
+				<ClientListItem v-for="cliente of clientes" :key="cliente.id" :client="cliente" />
+			</tbody>
+		</v-simple-table>
+	</section>
 </template>
 
 <script>
-import authService from "../services/client-service";
+import { createNamespacedHelpers } from "vuex";
+const { mapState, mapActions } = createNamespacedHelpers("clientes");
+
+import clientService from "../services/client-service";
 
 import ClientListItem from "./ClientListItem";
 
@@ -23,13 +29,14 @@ export default {
 	components: {
 		ClientListItem
 	},
-	data() {
-		return {
-			clients: []
-		};
+	methods: {
+		...mapActions(["setClientes"])
+	},
+	computed: {
+		...mapState(["clientes"])
 	},
 	async created() {
-		this.clients = await authService.clients();
+		this.setClientes(await clientService.clients());
 	}
 };
 </script>

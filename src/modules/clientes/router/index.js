@@ -4,7 +4,6 @@ export default [
   {
     path: "clientes",
     component: clientes,
-    meta: { requiresAuth: true },
-    
+    meta: { requiresAuth: true }
   }
 ]

@@ -7,11 +7,13 @@
 				</v-card-title>
 				<v-card-text>
 					<v-container>
+						<input type="hidden" :value="cliente.id" />
 						<v-col lg="12">
 							<v-text-field
 								label="Nome completo"
 								clearable
 								:value="cliente.nome"
+								v-model.trim="copyClient.nome"
 								prepend-icon="fas fa-user-tag"
 							/>
 						</v-col>
@@ -21,6 +23,7 @@
 								label="Endereço"
 								clearable
 								:value="cliente.endereco"
+								v-model.trim="copyClient.endereco"
 								prepend-icon="fas fa-map-marker-alt"
 							/>
 						</v-col>
@@ -29,6 +32,7 @@
 								label="Telefone"
 								clearable
 								:value="cliente.telefone"
+								v-model.trim="copyClient.telefone"
 								prepend-icon="fas fa-phone"
 							/>
 						</v-col>
@@ -40,7 +44,7 @@
 						Fechar
 						<v-icon class="ml-2" size="16">fas fa-times</v-icon>
 					</v-btn>
-					<v-btn color="green darken-1" class="white--text">
+					<v-btn color="green darken-1" class="white--text" @click="submit">
 						Salvar
 						<v-icon class="ml-2" size="16">fas fa-check</v-icon>
 					</v-btn>
@@ -51,20 +55,44 @@
 </template>
 
 <script>
-import { mapState, mapActions } from "vuex";
+import { createNamespacedHelpers } from "vuex";
+const { mapState, mapActions } = createNamespacedHelpers("clientes");
+
+import clientService from "../services/client-service";
+
 export default {
 	name: "modalEditar",
 	props: {
 		show: Boolean
 	},
 	methods: {
-		...mapActions(["setModal"]),
+		...mapActions(["setModal", "setClientes"]),
 		fechar() {
 			this.setModal({ showModal: false });
+		},
+		async submit() {
+			// this.isLoading = true;
+			try {
+				await clientService.updateClient(this.copyClient);
+				this.setClientes(await clientService.clients())
+				this.fechar()
+			} catch (error) {
+				console.log(error);
+			} //finally {
+			// 	this.isLoading = false;
+			// }
 		}
 	},
 	computed: {
-		...mapState(["cliente", "showModal"])
+		...mapState(["cliente", "showModal"]),
+		copyClient() {
+			return {
+				clientId: this.cliente.id,
+				nome: this.cliente.nome,
+				telefone: this.cliente.telefone,
+				endereco: this.cliente.endereco
+			};
+		}
 	}
 };
 </script>

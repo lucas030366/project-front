@@ -38,7 +38,7 @@
 				</v-list-item-content>
 			</v-list-item>
 
-			<v-list-group prepend-icon="fas fa-users">
+			<!-- <v-list-group prepend-icon="fas fa-users">
 				<template v-slot:activator>
 					<v-list-item-content>
 						<v-list-item-title>Clientes</v-list-item-title>
@@ -50,7 +50,7 @@
 						<v-icon v-text="crud[1]"></v-icon>
 					</v-list-item-action>
 				</v-list-item>
-			</v-list-group>
+			</v-list-group>-->
 		</v-list>
 	</v-navigation-drawer>
 </template>
@@ -74,7 +74,7 @@ export default {
 			items: [
 				{
 					title: "Home",
-					icon: "fas fa-tachometer-alt",
+					icon: "fas fa-home",
 					url: "/dashboard",
 					exact: true
 				},
@@ -82,6 +82,12 @@ export default {
 					title: "Clientes",
 					icon: "fas fa-users",
 					url: "/dashboard/clientes",
+					exact: true
+				},
+				{
+					title: "Orçamentos",
+					icon: "fas fa-folder-open",
+					url: "/dashboard/clientes/orcamento",
 					exact: true
 				}
 			],

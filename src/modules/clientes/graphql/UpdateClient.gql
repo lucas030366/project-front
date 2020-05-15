@@ -1,0 +1,20 @@
+mutation updateClient($clientId: ID!, $nome: String!, $endereco: String!, $telefone: String! ) {
+  
+  updateClient(
+    clientId: $clientId,
+    nome: $nome,
+    endereco: $endereco,
+    telefone: $telefone
+  ){
+    id
+    nome
+    endereco
+    telefone
+    user {
+      id
+      nome
+      email
+    }
+
+  }
+}
