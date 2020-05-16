@@ -1,17 +1,17 @@
 <template>
 	<section>
-		<AppLayout />
+		<OrcamentoItem />
 		<router-view></router-view>
 	</section>
 </template>
 
 <script>
-import AppLayout from "../components/AppLayout";
+import OrcamentoItem from "./OrcamentoItem";
 
 export default {
-	name: "Orcamento",
+	name: "AppLayoutOrcamento",
 	components: {
-		AppLayout
+		OrcamentoItem
 	}
 };
 </script>

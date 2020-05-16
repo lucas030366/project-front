@@ -4,6 +4,8 @@
 			<v-card>
 				<v-card-title>
 					<span class="headline">Editar Cadastro</span>
+					<v-spacer />
+					<v-progress-circular v-if="isLoading" indeterminate color="primary" />
 				</v-card-title>
 				<v-card-text>
 					<v-container>
@@ -40,11 +42,11 @@
 				</v-card-text>
 				<v-card-actions>
 					<v-spacer></v-spacer>
-					<v-btn color="red darken-3" class="white--text" @click="fechar">
+					<v-btn color="red darken-3" :disabled="isLoading" class="white--text" @click="fechar">
 						Fechar
 						<v-icon class="ml-2" size="16">fas fa-times</v-icon>
 					</v-btn>
-					<v-btn color="green darken-1" class="white--text" @click="submit">
+					<v-btn color="green darken-1" :disabled="isLoading" class="white--text" @click="submit">
 						Salvar
 						<v-icon class="ml-2" size="16">fas fa-check</v-icon>
 					</v-btn>
@@ -65,22 +67,27 @@ export default {
 	props: {
 		show: Boolean
 	},
+	data() {
+		return {
+			isLoading: false
+		};
+	},
 	methods: {
 		...mapActions(["setModal", "setClientes"]),
 		fechar() {
 			this.setModal({ showModal: false });
 		},
 		async submit() {
-			// this.isLoading = true;
+			this.isLoading = true;
 			try {
 				await clientService.updateClient(this.copyClient);
-				this.setClientes(await clientService.clients())
-				this.fechar()
+				this.setClientes(await clientService.clients());
+				this.fechar();
 			} catch (error) {
 				console.log(error);
-			} //finally {
-			// 	this.isLoading = false;
-			// }
+			} finally {
+				this.isLoading = false;
+			}
 		}
 	},
 	computed: {

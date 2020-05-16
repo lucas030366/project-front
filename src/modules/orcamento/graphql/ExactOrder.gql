@@ -1,0 +1,12 @@
+query Order($orderId: ID!){
+
+  order(orderId: $orderId){
+    id
+    descricao
+    valor
+    client {
+      id
+      nome
+    }
+  }
+}

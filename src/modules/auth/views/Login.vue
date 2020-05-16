@@ -4,7 +4,7 @@
 			<v-flex md3>
 				<v-card class="elevation-5">
 					<v-toolbar color="teal darken-1" dark>
-						<v-toolbar-title class="text-center">alguma</v-toolbar-title>
+						<v-toolbar-title class="text-center">{{ texts.toolbar }}</v-toolbar-title>
 						<v-spacer></v-spacer>
 						<v-progress-circular v-show="isLoading" indeterminate size="35" color="white" />
 					</v-toolbar>
@@ -14,30 +14,33 @@
 							<v-text-field
 								v-if="!isLogin"
 								prepend-icon="fas fa-user"
+								:success="!$v.user.nome.$invalid"
+								v-model.trim="$v.user.nome.$model"
 								label="nome"
 								type="text"
-								v-model.trim="user.nome"
 							/>
 							<v-text-field
 								prepend-icon="fas fa-envelope"
 								label="email"
 								type="email"
-								v-model.trim="user.email"
+								:success="!$v.user.email.$invalid"
+								v-model.trim="$v.user.email.$model"
 							/>
 							<v-text-field
 								prepend-icon="fas fa-lock"
 								label="senha"
-								type="password"					
-								v-model.trim="user.senha"
+								type="password"
+								:success="!$v.user.senha.$invalid"
+								v-model.trim="$v.user.senha.$model"
 							/>
 						</v-form>
 
-						<v-btn @click="isLogin = !isLogin" block text color="white" class="mt-3">alguma</v-btn>
+						<v-btn @click="isLogin = !isLogin" block text class="mt-3">{{ texts.button }}</v-btn>
 					</v-card-text>
 
 					<v-card-actions>
 						<v-spacer />
-						<v-btn  @click="submit" color="teal darken-1" large>alguma</v-btn>
+						<v-btn :disabled="$v.$invalid" @click="submit" color="teal darken-1" large>{{ texts.toolbar }}</v-btn>
 					</v-card-actions>
 
 					<v-snackbar v-model="showSnackbar" top>
@@ -53,6 +56,8 @@
 </template>
 
 <script>
+import { required, email, minLength } from "vuelidate/lib/validators";
+import { formatError } from "@/utils";
 
 import AuthService from "../services/auth-service";
 
@@ -67,21 +72,50 @@ export default {
 			error: null
 		};
 	},
+	validations() {
+		const validations = {
+			user: {
+				email: { required, email },
+				senha: { required, minLength: minLength(6) }
+			}
+		};
+
+		//nem passa para o proximo, apenas sai da função
+		if (this.isLogin) {
+			return validations;
+		}
+
+		return {
+			user: {
+				...validations.user,
+				nome: { required, minLength: minLength(6) }
+			}
+		};
+	},
 	methods: {
 		async submit() {
-      this.isLoading = true;
+			this.isLoading = true;
 			try {
 				this.isLogin
 					? await AuthService.login(this.user)
 					: await AuthService.signup(this.user);
 				this.$router.push(this.$route.query.redirect || "/dashboard");
 			} catch (error) {
-				this.error = error.message;
+				this.error = formatError(error.message);
 				this.showSnackbar = true;
 			} finally {
 				this.isLoading = false;
 			}
 		}
+	},
+	computed: {
+		texts() {
+			return this.isLogin
+				? { toolbar: "Login", button: "Criar conta" }
+				: { toolbar: "Criar Conta", button: "Já tenho uma conta" };
+		}
 	}
 };
 </script>
+
+

@@ -1,0 +1,12 @@
+query Orders ($clientId: ID) {
+  
+  orders(clientId: $clientId) {
+    id
+    descricao
+    valor
+    client{
+      id
+      nome
+    }
+  }
+}

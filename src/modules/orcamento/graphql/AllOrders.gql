@@ -1,0 +1,12 @@
+query Orders {
+  
+  orders {
+    id
+    descricao
+    valor
+    client {
+      id
+      nome
+    }
+  }
+}
