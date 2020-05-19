@@ -14,6 +14,7 @@
 							<v-text-field
 								v-if="!isLogin"
 								prepend-icon="fas fa-user"
+								:error-messages="nomeErrors"
 								:success="!$v.user.nome.$invalid"
 								v-model.trim="$v.user.nome.$model"
 								label="nome"
@@ -23,6 +24,7 @@
 								prepend-icon="fas fa-envelope"
 								label="email"
 								type="email"
+								:error-messages="emailErrors"
 								:success="!$v.user.email.$invalid"
 								v-model.trim="$v.user.email.$model"
 							/>
@@ -30,17 +32,23 @@
 								prepend-icon="fas fa-lock"
 								label="senha"
 								type="password"
+								:error-messages="senhaErrors"
 								:success="!$v.user.senha.$invalid"
 								v-model.trim="$v.user.senha.$model"
 							/>
 						</v-form>
 
-						<v-btn @click="isLogin = !isLogin" block text class="mt-3">{{ texts.button }}</v-btn>
+						<!-- <v-btn @click="isLogin = !isLogin" block text class="mt-3">{{ texts.button }}</v-btn> -->
 					</v-card-text>
 
 					<v-card-actions>
 						<v-spacer />
-						<v-btn :disabled="$v.$invalid" @click="submit" color="teal darken-1" large>{{ texts.toolbar }}</v-btn>
+						<v-btn
+							:disabled="$v.$invalid"
+							@click="submit"
+							color="white--text teal darken-1"
+							large
+						>{{ texts.toolbar }}</v-btn>
 					</v-card-actions>
 
 					<v-snackbar v-model="showSnackbar" top>
@@ -69,7 +77,8 @@ export default {
 			isLogin: true,
 			isLoading: false,
 			showSnackbar: false,
-			error: null
+			error: null,
+			textError: "Campo Obrigatório"
 		};
 	},
 	validations() {
@@ -113,6 +122,49 @@ export default {
 			return this.isLogin
 				? { toolbar: "Login", button: "Criar conta" }
 				: { toolbar: "Criar Conta", button: "Já tenho uma conta" };
+		},
+		emailErrors() {
+			const errors = [];
+			const email = this.$v.user.email;
+
+			if (!email.$dirty) {
+				return errors;
+			}
+
+			!email.required ? errors.push(this.textError) : null;
+			!email.email ? errors.push(this.textError) : null;
+
+			return errors;
+		},
+		senhaErrors() {
+			const errors = [];
+			const senha = this.$v.user.senha;
+
+			if (!senha.$dirty) {
+				return errors;
+			}
+
+			!senha.required ? errors.push(this.textError) : null;
+			!senha.minLength
+				? errors.push(`Mínimo ${senha.$params.minLength.min} caracteres`)
+				: null;
+
+			return errors;
+		},
+		nomeErrors() {
+			const errors = [];
+			const nome = this.$v.user.nome;
+
+			if (!nome.$dirty) {
+				return errors;
+			}
+
+			!nome.required ? errors.push(this.textError) : null;
+			!nome.minLength
+				? errors.push(`Mínimo ${nome.$params.minLength.min} caracteres`)
+				: null;
+
+			return errors;
 		}
 	}
 };

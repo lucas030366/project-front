@@ -15,7 +15,7 @@
 			<v-tooltip color="black" top>
 				<template v-slot:activator="{ on }">
 					<v-btn v-on="on" text fab @click="editar(client)">
-						<v-icon size="17" color="primary">fas fa-edit</v-icon>
+						<v-icon size="17" color="blue darken-2">fas fa-edit</v-icon>
 					</v-btn>
 				</template>
 				<span>editar</span>
