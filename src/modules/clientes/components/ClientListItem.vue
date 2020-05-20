@@ -29,7 +29,7 @@
 				<span>excluir</span>
 			</v-tooltip>
 		</td>
-		<ModalEditar :show="showModal" />
+		<ModalEdit :show="showModalEdit" />
 	</tr>
 </template>
 
@@ -37,25 +37,25 @@
 import { createNamespacedHelpers } from "vuex";
 const { mapState, mapActions } = createNamespacedHelpers("clientes");
 
-import ModalEditar from "./ModalEditar";
+import ModalEdit from "./ModalEdit";
 
 export default {
 	name: "ClientListItem",
 	components: {
-		ModalEditar
+		ModalEdit
 	},
 	props: {
 		client: Object
 	},
 	methods: {
-		...mapActions(["setClient", "setModal"]),
+		...mapActions(["setClient", "setModalEdit"]),
 		editar(client) {
-			this.setModal({ showModal: true });
+			this.setModalEdit({ showModalEdit: true });
 			this.setClient({ cliente: client });
 		}
 	},
 	computed: {
-		...mapState(["cliente", "showModal"])
+		...mapState(["cliente", "showModalEdit"])
 	}
 };
 </script>

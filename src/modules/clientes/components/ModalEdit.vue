@@ -73,9 +73,9 @@ export default {
 		};
 	},
 	methods: {
-		...mapActions(["setModal", "setClientes"]),
+		...mapActions(["setModalEdit", "setClientes"]),
 		fechar() {
-			this.setModal({ showModal: false });
+			this.setModalEdit({ showModalEdit: false });
 		},
 		async submit() {
 			this.isLoading = true;
@@ -91,7 +91,7 @@ export default {
 		}
 	},
 	computed: {
-		...mapState(["cliente", "showModal"]),
+		...mapState(["cliente", "showModalEdit"]),
 		copyClient() {
 			return {
 				clientId: this.cliente.id,

@@ -13,6 +13,10 @@
 				<ClientListItem v-for="cliente of clientes" :key="cliente.id" :client="cliente" />
 			</tbody>
 		</v-simple-table>
+
+		<AppFloatingButton />
+
+		<ModalCreate :show="showModalCreate" />
 	</section>
 </template>
 
@@ -23,17 +27,29 @@ const { mapState, mapActions } = createNamespacedHelpers("clientes");
 import ClientService from "@/graphql/clientes/services/client-service";
 
 import ClientListItem from "./ClientListItem";
+import AppFloatingButton from "./AppFloatingButton";
+import ModalCreate from "./ModalCreate";
 
 export default {
 	name: "Clientes",
 	components: {
-		ClientListItem
+		ClientListItem,
+		AppFloatingButton,
+		ModalCreate
+	},
+	data() {
+		return {
+			show: null
+		};
 	},
 	methods: {
-		...mapActions(["setClientes"])
+		...mapActions(["setClientes"]),
+		value(val) {
+			this.show = val;
+		}
 	},
 	computed: {
-		...mapState(["clientes"])
+		...mapState(["clientes", "showModalCreate"])
 	},
 	async created() {
 		this.setClientes(await ClientService.clients());

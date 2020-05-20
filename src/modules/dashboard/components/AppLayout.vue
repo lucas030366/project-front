@@ -10,14 +10,12 @@
 				</v-flex>
 			</v-layout>
 		</v-container>
-
 		<AppFooter />
 	</section>
 </template>
 
 <script>
 import AppToolbar from "./AppToolbar";
-
 import AppFooter from "./AppFooter";
 
 export default {

@@ -1,0 +1,11 @@
+mutation CreateClient($nome: String!, $telefone: String!, $endereco: String!){
+  createClient(
+    nome: $nome
+    telefone: $telefone
+    endereco: $endereco
+  ){
+    nome
+    telefone
+    endereco
+  }
+}
