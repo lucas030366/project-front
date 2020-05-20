@@ -60,7 +60,7 @@
 import { createNamespacedHelpers } from "vuex";
 const { mapState, mapActions } = createNamespacedHelpers("clientes");
 
-import clientService from "../services/client-service";
+import clientService from "@/graphql/clientes/services/client-service";
 
 export default {
 	name: "modalEditar",

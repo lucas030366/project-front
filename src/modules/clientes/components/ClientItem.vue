@@ -20,7 +20,7 @@
 import { createNamespacedHelpers } from "vuex";
 const { mapState, mapActions } = createNamespacedHelpers("clientes");
 
-import clientService from "../services/client-service";
+import ClientService from "@/graphql/clientes/services/client-service";
 
 import ClientListItem from "./ClientListItem";
 
@@ -36,7 +36,7 @@ export default {
 		...mapState(["clientes"])
 	},
 	async created() {
-		this.setClientes(await clientService.clients());
+		this.setClientes(await ClientService.clients());
 	}
 };
 </script>

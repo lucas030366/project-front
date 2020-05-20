@@ -67,7 +67,7 @@
 import { required, email, minLength } from "vuelidate/lib/validators";
 import { formatError } from "@/utils";
 
-import AuthService from "../services/auth-service";
+import AuthService from "@/graphql/auth/services/auth-service";
 
 export default {
 	name: "Login",

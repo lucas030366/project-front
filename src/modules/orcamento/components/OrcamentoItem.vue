@@ -18,7 +18,7 @@
 <script>
 import OrcamentoListItem from "./OrcamentoListItem";
 
-import ordersService from "../services/orders-service";
+import OrdersService from "@/graphql/orcamento/services/orders-service";
 
 export default {
 	name: "OrcamentoItem",
@@ -31,7 +31,7 @@ export default {
 		};
 	},
 	async created() {
-		this.orders = await ordersService.allOrders();
+		this.orders = await OrdersService.allOrders();
 	}
 };
 </script>

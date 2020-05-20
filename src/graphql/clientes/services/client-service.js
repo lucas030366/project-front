@@ -1,7 +1,7 @@
 import apollo from "@/plugins/apollo"
 
-import ClientsQuery from "../graphql/Clients.gql"
-import UpdateClientMutation from "../graphql/UpdateClient.gql"
+import ClientsQuery from "../Clients.gql"
+import UpdateClientMutation from "../UpdateClient.gql"
 
 const clients = async (options = {}) => {
   const response = await apollo.query({

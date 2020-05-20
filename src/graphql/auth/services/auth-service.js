@@ -1,7 +1,7 @@
 import apollo, { onLogin } from "@/plugins/apollo"
-import LoginMutation from "../graphql/Login.gql"
-import SignUpMutation from "../graphql/SignUp.gql"
-import UserQuery from "../graphql/User.gql"
+import LoginMutation from "../Login.gql"
+import SignUpMutation from "../SignUp.gql"
+import UserQuery from "../User.gql"
 
 const login = async variables => {
   const response = await apollo.mutate({

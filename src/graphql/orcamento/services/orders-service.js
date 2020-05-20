@@ -1,8 +1,8 @@
 import apollo from "@/plugins/apollo"
 
-import OrderQuery from "../graphql/Order.gql"
-import AllOrdersQuery from "../graphql/AllOrders.gql"
-import ExactOrderQuery from "../graphql/ExactOrder.gql"
+import OrderQuery from "../Order.gql"
+import AllOrdersQuery from "../AllOrders.gql"
+import ExactOrderQuery from "../ExactOrder.gql"
 
 const order = async ({ clientId }) => {
   const response = await apollo.query({
