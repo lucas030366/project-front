@@ -2,7 +2,7 @@ import Vue from 'vue'
 import Router from 'vue-router'
 
 import { AUTH_TOKEN } from "@/plugins/apollo"
-import AuthService from "@/modules/auth/services/auth-service"
+import AuthService from "@/graphql/auth/services/auth-service"
 
 import authRoutes from "@/modules/auth/router"
 import dashboardRoutes from "@/modules/dashboard/router"

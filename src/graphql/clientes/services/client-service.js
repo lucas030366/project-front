@@ -3,6 +3,7 @@ import apollo from "@/plugins/apollo"
 import ClientsQuery from "../Clients.gql"
 import UpdateClientMutation from "../UpdateClient.gql"
 import CreateClientMutation from "../CreateClient.gql"
+import DeleteClientMutation from "../DeleteClient.gql"
 
 const clients = async (options = {}) => {
   const response = await apollo.query({
@@ -31,8 +32,21 @@ const createClient = async variables => {
   return response.data.createClient
 }
 
+const deleteClient = async (clientId) => {
+  console.log(clientId)
+  const response = await apollo.mutate({
+    mutation: DeleteClientMutation,
+    variables: {
+      clientId
+    }
+  })
+  return response.data.deleteClient
+
+}
+
 export default {
   clients,
   createClient,
-  updateClient
+  updateClient,
+  deleteClient
 }

@@ -22,7 +22,7 @@
 			</v-tooltip>
 			<v-tooltip color="black" top>
 				<template v-slot:activator="{ on }">
-					<v-btn v-on="on" text fab>
+					<v-btn v-on="on" text fab @click="deletar(client.id)">
 						<v-icon size="17" color="red darken-2">fas fa-trash-alt</v-icon>
 					</v-btn>
 				</template>
@@ -37,6 +37,8 @@
 import { createNamespacedHelpers } from "vuex";
 const { mapState, mapActions } = createNamespacedHelpers("clientes");
 
+import ClientService from "@/graphql/clientes/services/client-service";
+
 import ModalEdit from "./ModalEdit";
 
 export default {
@@ -49,9 +51,19 @@ export default {
 	},
 	methods: {
 		...mapActions(["setClient", "setModalEdit"]),
-		editar(client) {
+		async editar(client) {
 			this.setModalEdit({ showModalEdit: true });
-			this.setClient({ cliente: client });
+			await this.setClient({ cliente: client });
+		},
+		async deletar(client) {
+			const confirm = window.confirm("Deseja excluir esse cliente?");
+			try {
+				if (confirm) {
+					await ClientService.deleteClient(client);
+				}
+			} catch (error) {
+				console.log(error);
+			}
 		}
 	},
 	computed: {

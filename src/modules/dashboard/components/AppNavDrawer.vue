@@ -56,7 +56,7 @@
 </template>
 
 <script>
-import authService from "@/modules/auth/services/auth-service";
+import authService from "@/graphql/auth/services/auth-service";
 
 export default {
 	name: "NavDrawer",
