@@ -32,7 +32,7 @@
 						<v-col lg="12">
 							<v-text-field
 								label="Telefone"
-								clearable
+								clearable							
 								:value="cliente.telefone"
 								v-model.trim="copyClient.telefone"
 								prepend-icon="fas fa-phone"
@@ -60,6 +60,8 @@
 import { createNamespacedHelpers } from "vuex";
 const { mapState, mapActions } = createNamespacedHelpers("clientes");
 
+import FormatPhoneMixin from "@/mixins/format-phone";
+
 import clientService from "@/graphql/clientes/services/client-service";
 
 export default {
@@ -67,6 +69,7 @@ export default {
 	props: {
 		show: Boolean
 	},
+	mixins: [FormatPhoneMixin],
 	data() {
 		return {
 			isLoading: false

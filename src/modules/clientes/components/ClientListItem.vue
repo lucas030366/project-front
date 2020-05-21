@@ -2,7 +2,7 @@
 	<tr>
 		<td>{{ client.nome }}</td>
 		<td>{{ client.endereco }}</td>
-		<td>{{ client.telefone }}</td>
+		<td>{{ formatPhone(client.telefone) }}</td>
 		<td>
 			<v-tooltip color="black" top>
 				<template v-slot:activator="{ on }">
@@ -37,12 +37,15 @@
 import { createNamespacedHelpers } from "vuex";
 const { mapState, mapActions } = createNamespacedHelpers("clientes");
 
+import FormatPhoneMixin from "@/mixins/format-phone";
+
 import ClientService from "@/graphql/clientes/services/client-service";
 
 import ModalEdit from "./ModalEdit";
 
 export default {
 	name: "ClientListItem",
+	mixins: [FormatPhoneMixin],
 	components: {
 		ModalEdit
 	},
