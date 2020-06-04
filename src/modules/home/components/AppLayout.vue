@@ -39,26 +39,31 @@
 </template>
 
 <script>
-import ClientService from "@/graphql/clientes/services/client-service";
+import { Subject } from "rxjs";
 
-import { createNamespacedHelpers } from "vuex";
-const { mapState, mapActions } = createNamespacedHelpers("clientes");
+import ClientService from "@/graphql/clientes/services/client-service";
 
 export default {
 	name: "AppLayoutHome",
 	data() {
 		return {
-			clientesCount: null
+			clientes: [],
+			subject$: new Subject(),
+			subscriptions: []
 		};
 	},
 	methods: {
-		...mapActions(["setClientes"])
+		setClients() {
+			this.subscriptions.push(
+				ClientService.clients().subscribe(clients => this.clientes = clients)
+			);
+		}
 	},
-	computed: {
-		...mapState(["clientes"])
+	created() {
+		this.setClients()
 	},
-	async created() {
-		this.setClientes(await ClientService.clients());
+	destroyed(){
+		this.subscriptions.forEach(s => s.unsubscribe())
 	}
 };
 </script>

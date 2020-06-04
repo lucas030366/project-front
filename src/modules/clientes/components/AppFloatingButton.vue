@@ -11,7 +11,7 @@
 					dark
 					bottom
 					right
-					color="green darken-2"
+					color="#0ba25d"
 					class="mb-5 mr-5"
 				>
 					<v-icon>fas fa-plus</v-icon>

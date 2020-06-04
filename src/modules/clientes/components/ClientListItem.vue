@@ -2,7 +2,7 @@
 	<tr>
 		<td>{{ client.nome }}</td>
 		<td>{{ client.endereco }}</td>
-		<td>{{ formatPhone(client.telefone) }}</td>
+		<td>{{ (client.telefone) }}</td>
 		<td>
 			<v-tooltip color="black" top>
 				<template v-slot:activator="{ on }">
@@ -43,6 +43,10 @@ import ClientService from "@/graphql/clientes/services/client-service";
 
 import ModalEdit from "./ModalEdit";
 
+import { Subject } from 'rxjs';
+import { mergeMap } from "rxjs/operators";
+
+
 export default {
 	name: "ClientListItem",
 	mixins: [FormatPhoneMixin],
@@ -51,6 +55,11 @@ export default {
 	},
 	props: {
 		client: Object
+	},
+	data(){
+		return{
+			subject$: new Subject()
+		}
 	},
 	methods: {
 		...mapActions(["setClient", "setModalEdit"]),
@@ -61,7 +70,7 @@ export default {
 		async deletar(client) {
 			const confirm = window.confirm("Deseja excluir esse cliente?");
 			try {
-				if (confirm) {
+				if (confirm) {					
 					await ClientService.deleteClient(client);
 				}
 			} catch (error) {

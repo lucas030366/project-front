@@ -5,7 +5,6 @@ import store from './store'
 import vuetify from './plugins/vuetify';
 
 import "@/plugins/vuelidate"
-import "@/plugins/mask"
 
 Vue.config.productionTip = false
 

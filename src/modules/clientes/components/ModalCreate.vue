@@ -11,14 +11,29 @@
 					<v-container>
 						<input type="hidden" />
 						<v-col lg="12">
-							<v-text-field label="Nome completo" clearable v-model="user.nome" prepend-icon="fas fa-user-tag" />
+							<v-text-field
+								label="Nome completo"
+								clearable
+								v-model="user.nome"
+								prepend-icon="fas fa-user-tag"
+							/>
 						</v-col>
 
 						<v-col lg="12">
-							<v-text-field label="Endereço" clearable v-model="user.endereco" prepend-icon="fas fa-map-marker-alt" />
+							<v-text-field
+								label="Endereço"
+								clearable
+								v-model="user.endereco"
+								prepend-icon="fas fa-map-marker-alt"
+							/>
 						</v-col>
 						<v-col lg="12">
-							<v-text-field label="Telefone" clearable v-model="user.telefone" prepend-icon="fas fa-phone" />
+							<v-text-field
+								label="Telefone"
+								clearable
+								v-model="user.telefone"
+								prepend-icon="fas fa-phone"
+							/>
 						</v-col>
 					</v-container>
 				</v-card-text>
@@ -42,6 +57,9 @@
 import { createNamespacedHelpers } from "vuex";
 const { mapState, mapActions } = createNamespacedHelpers("clientes");
 
+import { Subject } from "rxjs";
+import { mergeMap } from "rxjs/operators";
+
 import ClientService from "@/graphql/clientes/services/client-service";
 
 export default {
@@ -51,24 +69,34 @@ export default {
 	},
 	data() {
 		return {
-      isLoading: false,
-      user: {
-        nome: null,
-        endereco: null,
-        telefone: null
-      }
+			isLoading: false,
+			user: {
+				nome: null,
+				endereco: null,
+				telefone: null
+			},
+			subject$: new Subject()
 		};
 	},
 	methods: {
 		...mapActions(["setModalCreate", "setClientes"]),
 		fechar() {
 			this.setModalCreate({ showModalCreate: false });
-    },
+			// this.reset();
+		},
+		reset() {
+			var self = this;
+
+			Object.keys(this.user).forEach(function(key, index) {
+				self.user[key] = null;
+			});
+		},
 		async submit() {
 			this.isLoading = true;
+
 			try {
 				await ClientService.createClient(this.user);
-				this.setClientes(await ClientService.clients());
+				ClientService.clients().subscribe(clients => this.setClientes(clients));
 				this.fechar();
 			} catch (error) {
 				console.log(error);

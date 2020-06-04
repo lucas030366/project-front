@@ -4,6 +4,7 @@ mutation CreateClient($nome: String!, $telefone: String!, $endereco: String!){
     telefone: $telefone
     endereco: $endereco
   ){
+    id
     nome
     telefone
     endereco
