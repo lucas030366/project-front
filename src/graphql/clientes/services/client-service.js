@@ -88,6 +88,7 @@ const deleteClient = async (clientId) => {
 
         const indice = data.clients.findIndex(t => t.id === deleteClient.id)
         console.log("Clientes:", data.clients, "Exluido: ", indice)
+        //nao existe a posicao
         data.clients.splice(indice, 1)
 
         proxy.writeQuery({
