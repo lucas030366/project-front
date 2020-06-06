@@ -1,26 +1,26 @@
 const state = {
   clientes: [],
   cliente: null,
-  showModalEdit: false,
-  showModalCreate: false
+  showModalEditClient: false,
+  showModalCreateClient: false
 }
 
 const types = {
   SET_CLIENTES: "SET_CLIENTES",
   SET_CLIENT: "SET_CLIENT",
-  SET_MODAL_EDIT: "SET_MODAL_EDIT",
-  SET_MODAL_CREATE: "SET_MODAL_CREATE"
+  SET_MODAL_EDIT_CLIENT: "SET_MODAL_EDIT_CLIENT",
+  SET_MODAL_CREATE_CLIENT: "SET_MODAL_CREATE_CLIENT"
 }
 
 const mutations = {
   [types.SET_CLIENT]: (state, { cliente }) => {
     state.cliente = cliente
   },
-  [types.SET_MODAL_EDIT]: (state, { showModalEdit }) => {
-    state.showModalEdit = showModalEdit
+  [types.SET_MODAL_EDIT_CLIENT]: (state, { showModalEditClient }) => {
+    state.showModalEditClient = showModalEditClient
   },
-  [types.SET_MODAL_CREATE]: (state, { showModalCreate }) => {
-    state.showModalCreate = showModalCreate
+  [types.SET_MODAL_CREATE_CLIENT]: (state, { showModalCreateClient }) => {
+    state.showModalCreateClient = showModalCreateClient
   },
   [types.SET_CLIENTES]: (state, clientes) => {
     state.clientes = clientes
@@ -31,11 +31,11 @@ const actions = {
   setClient: ({ commit }, payload) => {
     commit(types.SET_CLIENT, payload)
   },
-  setModalEdit: ({ commit }, payload) => {
-    commit(types.SET_MODAL_EDIT, payload)
+  setModalEditClient: ({ commit }, payload) => {
+    commit(types.SET_MODAL_EDIT_CLIENT, payload)
   },
-  setModalCreate: ({ commit }, payload) => {
-    commit(types.SET_MODAL_CREATE, payload)
+  setModalCreateClient: ({ commit }, payload) => {
+    commit(types.SET_MODAL_CREATE_CLIENT, payload)
   },
   setClientes: ({ commit }, payload) => {
     commit(types.SET_CLIENTES, payload)

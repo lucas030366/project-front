@@ -29,7 +29,7 @@
 				<span>excluir</span>
 			</v-tooltip>
 		</td>
-		<ModalEdit :show="showModalEdit" />
+		<ModalEditDelete :show="showModalEditClient" />
 	</tr>
 </template>
 
@@ -41,7 +41,7 @@ import FormatPhoneMixin from "@/mixins/format-phone";
 
 import ClientService from "@/graphql/clientes/services/client-service";
 
-import ModalEdit from "./ModalEdit";
+import ModalEditDelete from "./ModalEditDelete";
 
 import { Subject } from 'rxjs';
 import { mergeMap } from "rxjs/operators";
@@ -51,7 +51,7 @@ export default {
 	name: "ClientListItem",
 	mixins: [FormatPhoneMixin],
 	components: {
-		ModalEdit
+		ModalEditDelete
 	},
 	props: {
 		client: Object
@@ -62,9 +62,9 @@ export default {
 		}
 	},
 	methods: {
-		...mapActions(["setClient", "setModalEdit"]),
+		...mapActions(["setClient", "setModalEditClient"]),
 		async editar(client) {
-			this.setModalEdit({ showModalEdit: true });
+			this.setModalEditClient({ showModalEditClient: true });
 			await this.setClient({ cliente: client });
 		},
 		async deletar(client) {
@@ -79,7 +79,7 @@ export default {
 		}
 	},
 	computed: {
-		...mapState(["cliente", "showModalEdit"])
+		...mapState(["cliente", "showModalEditClient"])
 	}
 };
 </script>

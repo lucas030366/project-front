@@ -32,7 +32,7 @@
 						<v-col lg="12">
 							<v-text-field
 								label="Telefone"
-								clearable							
+								clearable
 								:value="cliente.telefone"
 								v-model.trim="copyClient.telefone"
 								prepend-icon="fas fa-phone"
@@ -65,7 +65,7 @@ import FormatPhoneMixin from "@/mixins/format-phone";
 import clientService from "@/graphql/clientes/services/client-service";
 
 export default {
-	name: "modalEditar",
+	name: "ModalEditDelete",
 	props: {
 		show: Boolean
 	},
@@ -76,9 +76,9 @@ export default {
 		};
 	},
 	methods: {
-		...mapActions(["setModalEdit", "setClientes"]),
+		...mapActions(["setModalEditClient", "setClientes"]),
 		fechar() {
-			this.setModalEdit({ showModalEdit: false });
+			this.setModalEditClient({ showModalEditClient: false });
 		},
 		async submit() {
 			this.isLoading = true;
@@ -94,7 +94,7 @@ export default {
 		}
 	},
 	computed: {
-		...mapState(["cliente", "showModalEdit"]),
+		...mapState(["cliente", "showModalEditClient"]),
 		copyClient() {
 			return {
 				clientId: this.cliente.id,

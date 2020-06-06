@@ -14,9 +14,9 @@
 			</tbody>
 		</v-simple-table>
 
-		<AppFloatingButton />
+		<AppFloatingButton :type="type" />
 
-		<ModalCreate :show="showModalCreate" />
+		<ModalCreate :show="showModalCreateClient" />
 	</section>
 </template>
 
@@ -44,7 +44,8 @@ export default {
 			show: null,
 			subject$: new Subject(),
 			subscriptions: [],
-			clientes: []
+			clientes: [],
+			type: "cliente"
 		};
 	},
 	methods: {
@@ -59,7 +60,7 @@ export default {
 		}
 	},
 	computed: {
-		...mapState(["showModalCreate"])
+		...mapState(["showModalCreateClient"])
 	},
 	created() {
 		this.setClients()

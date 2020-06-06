@@ -55,7 +55,7 @@
 
 <script>
 import { createNamespacedHelpers } from "vuex";
-const { mapState, mapActions } = createNamespacedHelpers("clientes");
+const orcamentosStore = createNamespacedHelpers("orcamentos");
 
 import { Subject } from "rxjs";
 import { mergeMap } from "rxjs/operators";
@@ -79,34 +79,23 @@ export default {
 		};
 	},
 	methods: {
-		...mapActions(["setModalCreateClient", "setClientes"]),
-		fechar() {
-			this.setModalCreateClient({ showModalCreateClient: false });
-			this.reset();
-		},
+		...orcamentosStore.mapActions(["setModalCreateOrcamento"]),
 		reset() {
 			var self = this;
-
 			Object.keys(this.user).forEach(function(key, index) {
 				self.user[key] = null;
 			});
 		},
-		async submit() {
-			this.isLoading = true;
-
-			try {
-				await ClientService.createClient(this.user);
-				ClientService.clients().subscribe(clients => this.setClientes(clients));
-				this.fechar();
-			} catch (error) {
-				console.log(error);
-			} finally {
-				this.isLoading = false;
-			}
+		fechar() {
+			this.setModalCreateOrcamento({ showModalCreateOrcamento: false });
+			this.reset();
+		},
+		submit() {
+			console.log(this.user);
 		}
 	},
 	computed: {
-		...mapState(["cliente"])
+		...orcamentosStore.mapState(["showModalCreateOrcamento"])
 	}
 };
 </script>
