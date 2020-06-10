@@ -1,0 +1,18 @@
+mutation CreateOrder($clientId: ID!, $descricao: String!, $valor: Float!){
+
+  createOrder(
+    clientId: $clientId,
+    descricao: $descricao,
+    valor: $valor
+  ){
+    id
+    descricao
+    valor
+    client {
+      id
+      nome
+      telefone
+      endereco
+    }
+  }
+}

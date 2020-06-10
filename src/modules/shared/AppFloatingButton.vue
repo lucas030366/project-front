@@ -17,7 +17,7 @@
 					<v-icon>fas fa-plus</v-icon>
 				</v-btn>
 			</template>
-			<span>Novo cliente</span>
+			<span>Novo {{ typeFormated }}</span>
 		</v-tooltip>
 	</v-fab-transition>
 </template>
@@ -55,6 +55,9 @@ export default {
 	},
 	computed: {
 		...orcamentosStore.mapState(["showModalEditOrcamento"]),
+		typeFormated(){
+			return this.type == "cliente" ? "Cliente" : "Orçamento"
+		}
 	}
 };
 </script>

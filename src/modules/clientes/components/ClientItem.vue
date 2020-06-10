@@ -29,7 +29,7 @@ import { Subject } from "rxjs";
 import ClientService from "@/graphql/clientes/services/client-service";
 
 import ClientListItem from "./ClientListItem";
-import AppFloatingButton from "./AppFloatingButton";
+import AppFloatingButton from "../../shared/AppFloatingButton";
 import ModalCreate from "./ModalCreate";
 
 export default {

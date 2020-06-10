@@ -21,8 +21,10 @@
 
 <script>
 import OrcamentoListItem from "./OrcamentoListItem";
-import AppFloatingButton from "../../clientes/components/AppFloatingButton";
+import AppFloatingButton from "../../shared/AppFloatingButton";
 import ModalCreate from "./ModalCreate";
+
+import { Subject } from "rxjs";
 
 import { createNamespacedHelpers } from "vuex";
 const { mapState, mapActions } = createNamespacedHelpers("orcamentos");
@@ -39,14 +41,23 @@ export default {
 	data() {
 		return {
 			orders: [],
-			type: "orcamento"
+			type: "orcamento",
+			subject$: new Subject(),
+			subscriptions: []
 		};
+	},
+	methods: {
+		setOrders() {
+			this.subscriptions.push(
+				OrdersService.allOrders().subscribe(orders => (this.orders = orders))
+			);
+		}
 	},
 	computed: {
 		...mapState(["showModalCreateOrcamento"])
 	},
-	async created() {
-		this.orders = await OrdersService.allOrders();
+	created() {
+		this.setOrders()
 	}
 };
 </script>
