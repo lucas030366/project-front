@@ -37,7 +37,7 @@ export default {
 	name: "GoogleMaps",
 	data() {
 		return {
-			items: [{ text: "restaurant" }, { text: "university" }],
+			items: [{ text: "restaurant" }, { text: "pizzaria" }],
 			distancia: [{ text: "5" }, { text: "10" }, { text: "15" }],
 			map: {
 				latitude: 0,
@@ -60,9 +60,10 @@ export default {
 			);
 		},
 		submit() {
-			console.log(this.map)
-			const key = "AIzaSyARH0tNcCSqqV8B5rTfid6JREtMyGe3YHE"
-			const URL = `https://cors-anywhere.herokuapp.com/https://maps.googleapis.com/maps/api/place/findplacefromtext/json?input=${this.map.type}&inputtype=textquery&fields=name&locationbias=circle:${this.map.radius * 1000}@${this.map.latitude},${this.map.longitude}&key=${key}`
+		
+
+			const URL = `https://cors-anywhere.herokuapp.com/https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=${this.map.latitude},${this.map.longitude}&radius=${this.map.radius * 1000}&type=${this.map.type}`
+																																									
 			axios.get(URL)
 			.then(response => {
 				console.log(response.data)
