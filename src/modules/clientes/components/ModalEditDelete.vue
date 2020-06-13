@@ -96,12 +96,7 @@ export default {
 	computed: {
 		...mapState(["cliente", "showModalEditClient"]),
 		copyClient() {
-			return {
-				clientId: this.cliente.id,
-				nome: this.cliente.nome,
-				telefone: this.cliente.telefone,
-				endereco: this.cliente.endereco
-			};
+			return { ...this.cliente };
 		}
 	}
 };

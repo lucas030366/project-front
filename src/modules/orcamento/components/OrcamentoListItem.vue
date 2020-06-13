@@ -1,7 +1,12 @@
 <template>
 	<tr>
 		<td>
-			<v-btn class="white--text btn-custom pa-3" :color="status.color" x-small rounded>{{ status.text }}</v-btn>
+			<v-btn
+				class="white--text btn-custom pa-3"
+				:color="status.color"
+				x-small
+				rounded
+			>{{ status.text }}</v-btn>
 		</td>
 		<td>{{ orcamento.descricao }}</td>
 		<td>{{ formatCurrency(orcamento.valor) }}</td>
@@ -28,9 +33,12 @@
 </template>
 
 <script>
-import OrcamentosService from "@/graphql/orcamento/services/orders-service"
+import OrcamentosService from "@/graphql/orcamento/services/orders-service";
 
 import currencyFormartMixin from "@/mixins/format-currency";
+
+import { createNamespacedHelpers, mapState } from "vuex";
+const { mapActions } = createNamespacedHelpers("orcamentos");
 
 export default {
 	name: "OrcamentoListItem",
@@ -39,13 +47,15 @@ export default {
 		orcamento: Object
 	},
 	methods: {
-		editar(order) {
-			console.log(order.id);
+		...mapActions(["setModalEditOrcamento", "setOrcamento"]),
+		async editar(order) {
+			this.setModalEditOrcamento({ showModalEditOrcamento: true });
+			await this.setOrcamento({ orcamento: order });
 		},
 		async deletar(order) {
 			const confirm = window.confirm("Deseja excluir esse Orçamento?");
 			try {
-				if (confirm) {					
+				if (confirm) {
 					await OrcamentosService.deleteOrder(order);
 				}
 			} catch (error) {
@@ -54,6 +64,7 @@ export default {
 		}
 	},
 	computed: {
+		...mapState(["showModalEditOrcamento"]),
 		status() {
 			let orcamento = { text: null, color: null };
 			switch (this.orcamento.status) {
@@ -81,7 +92,7 @@ export default {
 </script>
 
 <style scoped>
-	.btn-custom{
-		min-width: 8rem !important;
-	}
+.btn-custom {
+	min-width: 8rem !important;
+}
 </style>

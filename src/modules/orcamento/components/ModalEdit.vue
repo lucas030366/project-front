@@ -1,30 +1,40 @@
 <template>
 	<v-row id="modalEditar" justify="center">
-		<v-dialog v-model="show" persistent max-width="900">
+		<v-dialog v-model="show" persistent max-width="900" v-if="orcamento">
 			<v-card>
 				<v-card-title>
-					<span class="headline">Novo Orçamento</span>
+					<span class="headline">Editar Orçamento</span>
 					<v-spacer />
 					<v-progress-circular v-if="isLoading" indeterminate color="primary" />
 				</v-card-title>
 				<v-card-text>
 					<v-container>
 						<div class="d-flex justify-center">
-							<v-radio-group v-model="orcamento.status" v-for="action of status" :key="action.value" row>
-								<v-radio :label="action.value" :color="action.color" :value="action.value"></v-radio>
+							<v-radio-group
+								v-model="copyOrcamento.status"
+								v-for="action of status"
+								:key="action.value"
+								row
+							>
+								<v-radio
+									name="status"
+									:id="action.type"
+									:label="action.type"									
+									:value="action.value"
+									:color="action.color"
+								></v-radio>
 							</v-radio-group>
 						</div>
 
-						<input type="hidden" />
 						<v-col lg="12">
-							<v-select
-								:items="clientes"
-								item-text="nome"
-								item-value="id"
+							<v-text-field
 								label="Cliente"
-								prepend-icon="fas fa-user"
-								v-model="orcamento.cliente"
-							></v-select>
+								dense
+								filled
+								disabled
+								prepend-icon="fas fa-user-alt"
+								v-model.trim="copyOrcamento.client.nome"
+							/>
 						</v-col>
 
 						<v-col lg="12">
@@ -32,18 +42,23 @@
 								auto-grow
 								label="Descrição"
 								rows="2"
+								:value="orcamento.descricao"
 								row-height="20"
+								dense
 								prepend-icon="fas fa-comments"
-								v-model="orcamento.descricao"
+								v-model.trim="copyOrcamento.descricao"
 							></v-textarea>
 						</v-col>
+
 						<v-col lg="12">
 							<v-text-field
 								label="Valor"
 								type="number"
+								:value="orcamento.valor"
 								clearable
+								dense
 								prepend-icon="fas fa-dollar-sign"
-								v-model="orcamento.valor"
+								v-model.trim="copyOrcamento.valor"
 							/>
 						</v-col>
 					</v-container>
@@ -64,27 +79,28 @@
 	</v-row>
 </template>
 
+
 <script>
 import { createNamespacedHelpers } from "vuex";
 
 const orcamentosStore = createNamespacedHelpers("orcamentos");
+const clientesStore = createNamespacedHelpers("clientes");
 
-import { Subject } from "rxjs";
-import { mergeMap } from "rxjs/operators";
+import FormatPhoneMixin from "@/mixins/format-phone";
 
-import ClientService from "@/graphql/clientes/services/client-service";
-import OrcamentosService from "@/graphql/orcamento/services/orders-service";
+import clientService from "@/graphql/clientes/services/client-service";
 
 export default {
-	name: "modalEditar",
+	name: "ModalEdit",
 	props: {
 		show: Boolean
 	},
+	mixins: [FormatPhoneMixin],
 	data() {
 		return {
 			isLoading: false,
-			orcamento: {
-				cliente: null,
+			o: {
+				client: null,
 				descricao: null,
 				valor: null,
 				status: null
@@ -94,55 +110,23 @@ export default {
 				{ type: "Executando", color: "blue", value: "EXECUTANDO" },
 				{ type: "Concluido", color: "green", value: "CONCLUIDO" },
 				{ type: "Cancelado", color: "red", value: "CANCELADO" }
-			],
-			clientes: [],
-			subject$: new Subject(),
-			subscriptions: []
+			]
 		};
 	},
 	methods: {
-		...orcamentosStore.mapActions(["setModalCreateOrcamento"]),
-		setClients() {
-			this.subscriptions.push(
-				ClientService.clients().subscribe(clients => (this.clientes = clients))
-			);
-		},
-		reset() {
-			var self = this;
-			Object.keys(this.orcamento).forEach(function(key, index) {
-				self.orcamento[key] = null;
-			});
-		},
+		...orcamentosStore.mapActions(["setModalEditOrcamento"]),
 		fechar() {
-			this.setModalCreateOrcamento({ showModalCreateOrcamento: false });
-			this.reset();
+			this.setModalEditOrcamento({ showModalEditOrcamento: false });
 		},
-		async submit() {
-			let order = {
-				clientId: this.orcamento.cliente,
-				descricao: this.orcamento.descricao,
-				valor: +this.orcamento.valor,
-				status: this.orcamento.status
-			};
-
-			try {
-				await OrcamentosService.createOrder(order);
-				this.fechar();
-			} catch (error) {
-				console.log(error);
-			} finally {
-				this.isLoading = false;
-			}
+		submit() {
+			console.log(this.order);
 		}
 	},
 	computed: {
-		...orcamentosStore.mapState(["showModalCreateOrcamento"])
-	},
-	created() {
-		this.setClients();
-	},
-	destroyed() {
-		this.subscriptions.forEach(s => s.unsubscribe());
+		...orcamentosStore.mapState(["orcamento"]),
+		copyOrcamento() {
+			return { ...this.orcamento };
+		}
 	}
 };
 </script>

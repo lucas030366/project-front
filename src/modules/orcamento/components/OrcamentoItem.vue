@@ -18,6 +18,8 @@
 		<AppFloatingButton :type="type" />
 
 		<ModalCreate :show="showModalCreateOrcamento" />
+
+		<ModalEdit :show="showModalEditOrcamento" />
 	</section>
 </template>
 
@@ -25,11 +27,12 @@
 import OrcamentoListItem from "./OrcamentoListItem";
 import AppFloatingButton from "../../shared/AppFloatingButton";
 import ModalCreate from "./ModalCreate";
+import ModalEdit from "./ModalEdit"
 
 import { Subject } from "rxjs";
 
 import { createNamespacedHelpers } from "vuex";
-const { mapState, mapActions } = createNamespacedHelpers("orcamentos");
+const { mapState } = createNamespacedHelpers("orcamentos");
 
 import OrdersService from "@/graphql/orcamento/services/orders-service";
 
@@ -38,7 +41,8 @@ export default {
 	components: {
 		OrcamentoListItem,
 		AppFloatingButton,
-		ModalCreate
+		ModalCreate,
+		ModalEdit
 	},
 	data() {
 		return {
@@ -56,7 +60,7 @@ export default {
 		}
 	},
 	computed: {
-		...mapState(["showModalCreateOrcamento"])
+		...mapState(["showModalCreateOrcamento","showModalEditOrcamento"])
 	},
 	created() {
 		this.setOrders();
