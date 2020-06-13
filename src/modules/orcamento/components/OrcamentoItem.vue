@@ -3,9 +3,11 @@
 		<v-simple-table fixedHeader>
 			<thead>
 				<tr>
+					<th class="subtitle-1 font-weight-bold">Status</th>
 					<th class="subtitle-1 font-weight-bold">Descrição</th>
 					<th class="subtitle-1 font-weight-bold">Valor</th>
 					<th class="subtitle-1 font-weight-bold">Contato</th>
+					<th class="subtitle-1 font-weight-bold">Opções</th>
 				</tr>
 			</thead>
 			<tbody>
@@ -57,7 +59,7 @@ export default {
 		...mapState(["showModalCreateOrcamento"])
 	},
 	created() {
-		this.setOrders()
+		this.setOrders();
 	}
 };
 </script>

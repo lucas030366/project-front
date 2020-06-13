@@ -1,13 +1,16 @@
-mutation CreateOrder($clientId: ID!, $descricao: String!, $valor: Float!){
+# import * from './Status.graphql'
+mutation CreateOrder($clientId: ID!, $descricao: String!, $valor: Float!, $status: Status!){
 
   createOrder(
     clientId: $clientId,
     descricao: $descricao,
     valor: $valor
+    status: $status
   ){
     id
     descricao
     valor
+    status
     client {
       id
       nome

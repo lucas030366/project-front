@@ -89,6 +89,12 @@ export default {
 					icon: "fas fa-folder-open",
 					url: "/dashboard/clientes/orcamento",
 					exact: true
+				},
+								{
+					title: "Mapa",
+					icon: "fas fa-map",
+					url: "/dashboard/google-maps",
+					exact: true
 				}
 			],
 			mini: false,

@@ -16,7 +16,17 @@
 					</v-card>
 				</v-col>
 				<v-col lg="4">
-					<v-card outlined tile class="pa-5">Contagem Orçamentos</v-card>
+					<v-card class="mx-auto pa-3" dark tile elevation="2" color="#3bce62">
+						<v-row>
+							<v-col lg="8">
+								<h3 class="display-2 font-weight-medium">{{ orders.length }}</h3>
+								<h6 class="font-weight-bolder title">Orçamentos Ativos</h6>
+							</v-col>
+							<v-col>
+								<v-icon color="rgba(0,0,0,0.15)" size="50">fas fa-folder-open</v-icon>
+							</v-col>
+						</v-row>
+					</v-card>
 				</v-col>
 				<v-col lg="4">
 					<v-card outlined tile class="pa-5">ROI</v-card>
@@ -42,28 +52,33 @@
 import { Subject } from "rxjs";
 
 import ClientService from "@/graphql/clientes/services/client-service";
+import OrcamentosService from "@/graphql/orcamento/services/orders-service"
 
 export default {
 	name: "AppLayoutHome",
 	data() {
 		return {
 			clientes: [],
+			orders: [],
 			subject$: new Subject(),
 			subscriptions: []
 		};
 	},
 	methods: {
-		setClients() {
+		setInit() {
 			this.subscriptions.push(
-				ClientService.clients().subscribe(clients => this.clientes = clients)
+				ClientService.clients().subscribe(clients => (this.clientes = clients))
 			);
+			this.subscriptions.push(
+				OrcamentosService.allOrders().subscribe(orders => this.orders = orders)
+			)
 		}
 	},
 	created() {
-		this.setClients()
+		this.setInit();
 	},
-	destroyed(){
-		this.subscriptions.forEach(s => s.unsubscribe())
+	destroyed() {
+		this.subscriptions.forEach(s => s.unsubscribe());
 	}
 };
 </script>

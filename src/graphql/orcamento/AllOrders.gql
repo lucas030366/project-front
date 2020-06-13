@@ -4,6 +4,7 @@ query Orders {
     id
     descricao
     valor
+    status
     client {
       id
       nome

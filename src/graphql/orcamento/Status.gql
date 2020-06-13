@@ -1,0 +1,6 @@
+enum Status {
+  AGUARDANDO
+	EXECUTANDO  
+	CONCLUIDO
+  CANCELADO   
+}

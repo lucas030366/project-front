@@ -4,6 +4,7 @@ query Order($orderId: ID!){
     id
     descricao
     valor
+    status
     client {
       id
       nome

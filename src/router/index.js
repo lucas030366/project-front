@@ -7,6 +7,7 @@ import AuthService from "@/graphql/auth/services/auth-service"
 import authRoutes from "@/modules/auth/router"
 import dashboardRoutes from "@/modules/dashboard/router"
 
+
 Vue.use(Router)
 
 const router = new Router({

@@ -9,6 +9,12 @@
 				</v-card-title>
 				<v-card-text>
 					<v-container>
+						<div class="d-flex justify-center">
+							<v-radio-group v-model="orcamento.status" v-for="action of status" :key="action.value" row>
+								<v-radio :label="action.type" :color="action.color" :value="action.value"></v-radio>
+							</v-radio-group>
+						</div>
+
 						<input type="hidden" />
 						<v-col lg="12">
 							<v-select
@@ -79,8 +85,15 @@ export default {
 			orcamento: {
 				cliente: null,
 				descricao: null,
-				valor: null
+				valor: null,
+				status: null
 			},
+			status: [
+				{ type: "Aguardando", color: "orange", value: "AGUARDANDO" },
+				{ type: "Executando", color: "blue", value: "EXECUTANDO" },
+				{ type: "Concluido", color: "green", value: "CONCLUIDO" },
+				{ type: "Cancelado", color: "red", value: "CANCELADO" }
+			],
 			clientes: [],
 			subject$: new Subject(),
 			subscriptions: []
@@ -104,12 +117,14 @@ export default {
 			this.reset();
 		},
 		async submit() {
+
 			let order = {
 				clientId: this.orcamento.cliente,
 				descricao: this.orcamento.descricao,
-				valor: +this.orcamento.valor
+				valor: +this.orcamento.valor,
+				status: this.orcamento.status
 			};
-
+	
 			try {
 				await OrcamentosService.createOrder(order);
 				this.fechar();
