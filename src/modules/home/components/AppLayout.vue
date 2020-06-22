@@ -29,19 +29,16 @@
 					</v-card>
 				</v-col>
 				<v-col lg="4">
-					<v-card outlined tile class="pa-5">ROI</v-card>
+					<v-card outlined tile class="pa-5">Clientes Devedores</v-card>
 				</v-col>
 			</v-row>
 
 			<v-row>
-				<v-col lg="4">
-					<v-card outlined tile class="pa-5">TESTE</v-card>
+				<v-col lg="6">
+					<v-card outlined tile class="pa-5">Gráfico novos clientes p/mês</v-card>
 				</v-col>
-				<v-col lg="4">
-					<v-card outlined tile class="pa-5">TESTE</v-card>
-				</v-col>
-				<v-col lg="4">
-					<v-card outlined tile class="pa-5">TESTE</v-card>
+				<v-col lg="6">
+					<v-card outlined tile class="pa-5">Gráfico Receitas e Despesas</v-card>
 				</v-col>
 			</v-row>
 		</v-container>

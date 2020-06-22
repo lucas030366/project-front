@@ -1,7 +1,7 @@
-mutation updateClient($clientId: ID!, $nome: String!, $endereco: String!, $telefone: String! ) {
+mutation updateClient($id: ID!, $nome: String!, $endereco: String!, $telefone: String! ) {
   
   updateClient(
-    clientId: $clientId,
+    clientId: $id,
     nome: $nome,
     endereco: $endereco,
     telefone: $telefone

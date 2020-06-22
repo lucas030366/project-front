@@ -70,6 +70,7 @@ const updateClient = async variables => {
 
     }
   })
+
   return response.data.updateClient
 }
 

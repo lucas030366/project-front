@@ -29,7 +29,7 @@
 				<span>excluir</span>
 			</v-tooltip>
 		</td>
-		<ModalEditDelete :show="showModalEditClient" />
+		<ModalEdit :show="showModalEditClient" />
 	</tr>
 </template>
 
@@ -41,7 +41,7 @@ import FormatPhoneMixin from "@/mixins/format-phone";
 
 import ClientService from "@/graphql/clientes/services/client-service";
 
-import ModalEditDelete from "./ModalEditDelete";
+import ModalEdit from "./ModalEdit";
 
 import { Subject } from 'rxjs';
 import { mergeMap } from "rxjs/operators";
@@ -51,7 +51,7 @@ export default {
 	name: "ClientListItem",
 	mixins: [FormatPhoneMixin],
 	components: {
-		ModalEditDelete
+		ModalEdit
 	},
 	props: {
 		client: Object

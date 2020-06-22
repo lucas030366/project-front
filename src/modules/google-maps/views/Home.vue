@@ -25,6 +25,7 @@
 		</v-col>
 		<v-col>
 			<div ref="map"></div>
+			<p>*teste (buscará materiais de construção nas proximidades)</p>
 		</v-col>
 	</v-row>
 </template>

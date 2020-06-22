@@ -9,7 +9,7 @@
 				</v-card-title>
 				<v-card-text>
 					<v-container>
-						<input type="hidden" :value="cliente.id" />
+						<input type="hidden" v-model.trim="cliente.id" />
 						<v-col lg="12">
 							<v-text-field
 								label="Nome completo"
@@ -63,6 +63,7 @@ const { mapState, mapActions } = createNamespacedHelpers("clientes");
 import FormatPhoneMixin from "@/mixins/format-phone";
 
 import clientService from "@/graphql/clientes/services/client-service";
+import { copyFile } from 'fs';
 
 export default {
 	name: "ModalEditDelete",
@@ -84,7 +85,6 @@ export default {
 			this.isLoading = true;
 			try {
 				await clientService.updateClient(this.copyClient);
-				this.setClientes(await clientService.clients());
 				this.fechar();
 			} catch (error) {
 				console.log(error);
