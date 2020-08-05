@@ -17,11 +17,18 @@ const onLogin = async (apollo, token) => {
   await resetApolloClient(apollo)
 }
 
+const onLogout = async apollo => {
+  if (typeof window.localStorage !== "undefined") {
+    window.localStorage.removeItem(AUTH_TOKEN)
+  }
+  await resetApolloClient(apollo)
+}
+
 const link = new HttpLink({
   uri: "http://localhost:4000"
 })
 
-const authLink = new ApolloLink( (operation, forward) => {
+const authLink = new ApolloLink((operation, forward) => {
   const headers = operation.getContext().headers
   operation.setContext({
     headers: {
@@ -45,5 +52,6 @@ export default apollo
 
 export {
   AUTH_TOKEN,
-  onLogin
+  onLogin,
+  onLogout
 }

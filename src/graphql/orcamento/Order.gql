@@ -5,9 +5,11 @@ query Orders ($clientId: ID) {
     descricao
     valor
     status
-    client{
+    client {
       id
       nome
+      telefone
+      endereco
     }
   }
 }

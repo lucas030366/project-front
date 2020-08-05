@@ -8,6 +8,8 @@ query Orders {
     client {
       id
       nome
+      telefone
+      endereco
     }
   }
 }

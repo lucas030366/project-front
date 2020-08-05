@@ -14,11 +14,11 @@
     "core-js": "^3.6.4",
     "graphql": "^14.7.0",
     "roboto-fontface": "*",
-    "rxjs": "^6.6.0",
+    "rxjs": "^6.6.2",
     "vue": "^2.6.11",
     "vue-router": "^3.3.4",
     "vuelidate": "^0.7.5",
-    "vuetify": "^2.3.4",
+    "vuetify": "^2.3.7",
     "vuex": "^3.5.1"
   },
   "devDependencies": {
@@ -32,8 +32,8 @@
     "eslint-plugin-vue": "^6.2.2",
     "sass": "^1.26.10",
     "sass-loader": "^8.0.0",
-    "vue-cli-plugin-apollo": "^0.21.3",
-    "vue-cli-plugin-vuetify": "^2.0.6",
+    "vue-cli-plugin-apollo": "^0.22.2",
+    "vue-cli-plugin-vuetify": "^2.0.7",
     "vue-template-compiler": "^2.6.11",
     "vuetify-loader": "^1.6.0"
   },

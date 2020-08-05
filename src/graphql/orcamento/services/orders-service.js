@@ -8,6 +8,7 @@ import ExactOrderQuery from "../ExactOrder.gql"
 
 import CreateOrderMutation from "../CreateOrder.gql"
 import DeleteOrderMutation from "../DeleteOrder.gql"
+import UpdateOrderMutation from "../UpdateOrder.gql"
 
 
 const order = async ({ clientId }) => {
@@ -41,7 +42,6 @@ const exactOrder = async ({ orderId }) => {
 /********************************************/
 
 const createOrder = async variables => {
-  console.log(variables)
   const response = await apollo.mutate({
     mutation: CreateOrderMutation,
     variables,
@@ -50,7 +50,7 @@ const createOrder = async variables => {
         const data = proxy.readQuery({
           query: AllOrdersQuery
         })
- 
+
         data.orders = [...data.orders, createOrder]
 
         proxy.writeQuery({
@@ -97,10 +97,45 @@ const deleteOrder = async (orderId) => {
 
 }
 
+const updateOrder = async variables => {
+  const response = await apollo.mutate({
+    mutation: UpdateOrderMutation,
+    variables: {
+      clientId: variables.client.id,
+      orderId: variables.id,
+      descricao: variables.descricao,
+      valor: +variables.valor,
+      status: variables.status
+    },
+    update: (proxy, { data: { updateOrder } }) => {
+
+      try {
+        const data = proxy.readQuery({
+          query: AllOrdersQuery
+        })
+
+        const indice = data.orders.findIndex(t => t.id === updateOrder.id)
+        data.orders.splice(indice, 1, updateOrder)
+
+        proxy.writeQuery({
+          query: AllOrdersQuery,
+          data
+        })
+
+      } catch (error) {
+        console.log(error)
+      }
+
+    }
+  })
+  return response.data.updateOrder
+}
+
 export default {
   order,
   exactOrder,
   allOrders,
   createOrder,
-  deleteOrder
+  deleteOrder,
+  updateOrder
 }

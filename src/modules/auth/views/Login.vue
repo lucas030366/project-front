@@ -1,63 +1,68 @@
 <template>
   <v-container class="mt-5">
-    <v-layout justify-center align-center>
-      <v-flex md3>
-        <h2 class="text-center pa-4">Entrar no MasterWeb</h2>
+    <v-col cols="3" class="mx-auto">
+      <h2 class="text-center pa-4">Entrar no MasterWeb</h2>
 
-        <v-card class="v-sheet--outlined">
-          <v-card-text>
-            <v-form>
-              <v-text-field
-                v-if="!isLogin"
-                prepend-icon="fas fa-user"
-                :error-messages="nomeErrors"
-                :success="!$v.user.nome.$invalid"
-                v-model.trim="$v.user.nome.$model"
-                label="nome"
-                type="text"
-              />
-              <v-text-field
-                prepend-icon="fas fa-envelope"
-                label="email"
-                type="email"
-                :error-messages="emailErrors"
-                :success="!$v.user.email.$invalid"
-                v-model.trim="$v.user.email.$model"
-              />
-              <v-text-field
-                prepend-icon="fas fa-lock"
-                label="senha"
-                type="password"
-                :error-messages="senhaErrors"
-                :success="!$v.user.senha.$invalid"
-                v-model.trim="$v.user.senha.$model"
-              />
-            </v-form>
+      <v-card class="v-sheet--outlined">
+        <v-card-text>
+          <v-form>
+            <v-text-field
+              v-if="!isLogin"
+              label="nome"
+              outlined
+              dense
+              :error-messages="nomeErrors"
+              :success="!$v.user.nome.$invalid"
+              v-model.trim="$v.user.nome.$model"
+              type="text"
+            />
 
-            <v-btn @click="isLogin = !isLogin" block text class="mt-3">{{ texts.button }}</v-btn>
+            <v-text-field
+              outlined
+              dense
+              label="email"
+              type="email"
+              :error-messages="emailErrors"
+              :success="!$v.user.email.$invalid"
+              v-model.trim="$v.user.email.$model"
+            />
 
+            <v-text-field
+              outlined
+              dense
+              label="senha"
+              type="password"
+              :error-messages="senhaErrors"
+              :success="!$v.user.senha.$invalid"
+              v-model.trim="$v.user.senha.$model"
+            />
+          </v-form>
+
+          <v-btn @click="isLogin = !isLogin" block text class="mt-3">{{ texts.button }}</v-btn>
+
+          <div class="text-center">
             <v-progress-circular v-show="isLoading" indeterminate size="35" color="teal darken-1" />
-          </v-card-text>
+          </div>
+        </v-card-text>
 
-          <v-card-actions>
-            <v-spacer />
-            <v-btn
-              :disabled="$v.$invalid"
-              @click="submit"
-              color="white--text teal darken-1"
-              class="v-btn--block"
-            >{{ texts.toolbar }}</v-btn>
-          </v-card-actions>
+        <v-card-actions>
+          <v-spacer />
+          <v-btn
+            :disabled="$v.$invalid"
+            @click="submit"
+            color="white--text teal darken-1"
+            class="v-btn--block"
+          >{{ texts.toolbar }}</v-btn>
+        </v-card-actions>
 
-          <v-snackbar v-model="showSnackbar" top>
-            {{error}}
-            <v-btn icon color="pink lighten-1" @click="showSnackbar = false">
-              <v-icon>fas fa-times</v-icon>
-            </v-btn>
-          </v-snackbar>
-        </v-card>
-      </v-flex>
-    </v-layout>
+        <v-snackbar v-model="showSnackbar" top>
+          {{error}}
+          <v-btn icon color="pink lighten-1" @click="showSnackbar = false">
+            <v-icon>fas fa-times</v-icon>
+          </v-btn>
+        </v-snackbar>
+      </v-card>
+    </v-col>
   </v-container>
 </template>
 
@@ -168,7 +173,7 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
 main {
   background-color: #f9f9f9;
 }

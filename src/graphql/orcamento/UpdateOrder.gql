@@ -1,16 +1,17 @@
 # import * from './Status.gql'
-mutation CreateOrder($clientId: ID!, $descricao: String!, $valor: Float!, $status: Status!){
-
-  createOrder(
+mutation UpdateOrder($orderId: ID!, $clientId: ID!, $descricao: String!, $valor: Float!, $status: Status! ) {
+  
+  updateOrder(
+    orderId: $orderId,
     clientId: $clientId,
     descricao: $descricao,
-    valor: $valor
+    valor: $valor,
     status: $status
   ){
     id
     descricao
-    valor
     status
+    valor
     client {
       id
       nome

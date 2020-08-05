@@ -8,6 +8,8 @@ query Order($orderId: ID!){
     client {
       id
       nome
+      telefone
+      endereco
     }
   }
 }
