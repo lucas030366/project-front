@@ -1,12 +1,34 @@
-mutation CreateClient($nome: String!, $telefone: String!, $endereco: String!){
+mutation CreateClient(
+  $nome: String!, 
+  $telefone: String!, 
+  $endereco: String!,
+  $cep: String,
+  $complemento: String,
+  $numero: Float,
+  $status_cli: Boolean,
+  $status_ord: Boolean,
+  $status_pay: Boolean
+  ){
   createClient(
     nome: $nome
     telefone: $telefone
     endereco: $endereco
+    cep: $cep
+    complemento: $complemento
+    numero: $numero
+    status_cli: $status_cli
+    status_ord: $status_ord
+    status_pay: $status_pay
   ){
     id
     nome
     telefone
-    endereco
+    endereco  
+    cep
+    complemento
+    numero
+    status_cli
+    status_ord
+    status_pay
   }
 }

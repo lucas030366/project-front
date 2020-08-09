@@ -1,8 +1,14 @@
 query Clients {
   clients {
     id
-    nome, 
-    endereco,
+    nome
     telefone
+    endereco  
+    cep
+    complemento
+    numero
+    status_cli
+    status_ord
+    status_pay
   }
 }

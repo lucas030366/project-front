@@ -1,7 +1,7 @@
 <template>
-  <v-container class="mt-5">
+  <v-container fill-height>
     <v-col cols="3" class="mx-auto">
-      <h2 class="text-center pa-4">Entrar no MasterWeb</h2>
+      <h2 class="text-center pa-4 teal--text">Entrar no MasterWeb</h2>
 
       <v-card class="v-sheet--outlined">
         <v-card-text>
@@ -173,8 +173,9 @@ export default {
 };
 </script>
 
-<style scoped>
+
+<style>
 main {
-  background-color: #f9f9f9;
+  background-color: #f9f9f9 !important;
 }
 </style>

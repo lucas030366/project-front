@@ -17,10 +17,32 @@ const clients = (options = {}) => {
 
 /**********************************************************/
 
+const clienteCampos = (variables, usaId) => {
+  let fields = {
+    nome: variables.nome,
+    endereco: variables.endereco,
+    telefone: variables.telefone,
+    cep: variables.cep,
+    complemento: variables.complemento,
+    numero: +variables.numero,
+    status_cli: variables.status_cli,
+    status_ord: variables.status_ord,
+    status_pay: variables.status_pay
+  }
+
+  if (usaId) {
+    const id = { id: variables.id }
+    return Object.assign(fields, id)
+  }
+
+  return fields
+}
+
 const createClient = async variables => {
+  const fields = clienteCampos(variables, true)
   const response = await apollo.mutate({
     mutation: CreateClientMutation,
-    variables,
+    variables: fields,
     update: (proxy, { data: { createClient } }) => {
 
       try {
@@ -46,11 +68,11 @@ const createClient = async variables => {
 }
 
 const updateClient = async variables => {
+  const fields = clienteCampos(variables, true)
   const response = await apollo.mutate({
     mutation: UpdateClientMutation,
-    variables,
+    variables: fields,
     update: (proxy, { data: { updateClient } }) => {
-
       try {
         const data = proxy.readQuery({
           query: ClientsQuery
